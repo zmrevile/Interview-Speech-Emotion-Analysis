@@ -1,0 +1,42 @@
+# Python缓存文件
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 虚拟环境
+venv/
+env/
+ENV/
+
+# 模型文件（太大）
+*.bin
+*.pth
+*.ckpt
+models/
+
+# 音频测试文件
+*.wav
+*.mp3
+*.flac
+test_audio/
+
+# 日志文件
+*.log
+logs/
+
+# IDE设置
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 环境变量
+.env
+
+# 临时文件
+*.tmp
+*.temp
+
+# 系统文件
+.DS_Store
+Thumbs.db 
