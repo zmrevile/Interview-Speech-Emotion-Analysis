@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app)  # 允许跨域请求
 
-# 全局变量 - 模型加载器（避免重复加载）
+# 全局变量 - 模型加载器(避免重复加载)
 analyzer = None
 
 def init_analyzer():
@@ -70,7 +70,7 @@ def analyze_emotion():
     """
     语音情感分析接口
     
-    支持两种输入方式：
+    支持两种输入方式:
     1. 文件上传 (multipart/form-data)
     2. Base64编码的音频数据 (JSON)
     """
@@ -182,18 +182,18 @@ def generate_interview_assessment(final_result):
     # 面试情感分类和评分
     emotion_scoring = {
         # 正面情感 (高分)
-        "自信": {"base_score": 90, "type": "excellent", "desc": "表现出色"},
-        "沉着": {"base_score": 85, "type": "excellent", "desc": "沉稳可靠"}, 
-        "平静": {"base_score": 75, "type": "good", "desc": "状态良好"},
-        "专注": {"base_score": 80, "type": "good", "desc": "专注投入"},
+        "confident": {"base_score": 90, "type": "excellent", "desc": "表现出色"},
+        "composed": {"base_score": 85, "type": "excellent", "desc": "沉稳可靠"}, 
+        "calm": {"base_score": 75, "type": "good", "desc": "状态良好"},
+        "focused": {"base_score": 80, "type": "good", "desc": "专注投入"},
         
         # 中性情感 (中等分)
-        "兴奋": {"base_score": 70, "type": "neutral", "desc": "略显激动"},
+        "excited": {"base_score": 70, "type": "neutral", "desc": "略显激动"},
         
         # 负面情感 (低分)
-        "紧张": {"base_score": 45, "type": "poor", "desc": "显得紧张"},
-        "焦虑": {"base_score": 40, "type": "poor", "desc": "较为焦虑"},
-        "不满": {"base_score": 35, "type": "poor", "desc": "情绪不佳"}
+        "nervous": {"base_score": 45, "type": "poor", "desc": "显得紧张"},
+        "anxious": {"base_score": 40, "type": "poor", "desc": "较为焦虑"},
+        "dissatisfied": {"base_score": 35, "type": "poor", "desc": "情绪不佳"}
     }
     
     # 获取情感评分信息
@@ -209,30 +209,30 @@ def generate_interview_assessment(final_result):
     # 生成建议
     recommendations = []
     
-    if emotion == "自信":
+    if emotion == "confident":
         recommendations.append("情感表达非常自信，表现优秀")
         recommendations.append("继续保持这种状态")
-    elif emotion == "沉着":
+    elif emotion == "composed":
         recommendations.append("表现沉着冷静，给人可靠感")
         recommendations.append("适当增加一些积极表达")
-    elif emotion == "平静":
+    elif emotion == "calm":
         recommendations.append("状态平和稳定")
         recommendations.append("可以适当表现更多自信")
-    elif emotion == "专注":
+    elif emotion == "focused":
         recommendations.append("展现出很好的专注力")
         recommendations.append("保持这种投入状态")
-    elif emotion == "兴奋":
+    elif emotion == "excited":
         recommendations.append("表现出积极的态度")
         recommendations.append("注意控制情绪，保持专业")
-    elif emotion == "紧张":
+    elif emotion == "nervous":
         recommendations.append("适度紧张是正常的，注意放松")
         recommendations.append("可以通过深呼吸缓解紧张感")
         recommendations.append("多做准备有助于增强信心")
-    elif emotion == "焦虑":
+    elif emotion == "anxious":
         recommendations.append("建议调整心态，保持冷静")
         recommendations.append("专注于问题本身，不要过度担心")
         recommendations.append("提前准备可以减少焦虑")
-    elif emotion == "不满":
+    elif emotion == "dissatisfied":
         recommendations.append("注意情绪管理，保持专业态度")
         recommendations.append("即使遇到困难也要积极应对")
     
@@ -258,7 +258,7 @@ def generate_interview_assessment(final_result):
 
 @app.route('/batch_analyze', methods=['POST'])
 def batch_analyze():
-    """批量分析接口（适用于分析整个面试会话）"""
+    """批量分析接口(适用于分析整个面试会话)"""
     try:
         if analyzer is None:
             return create_response(False, None, "分析器未初始化", "ANALYZER_NOT_READY")
@@ -351,12 +351,12 @@ def generate_overall_report(results):
     # 生成面试建议
     interview_suggestions = []
     
-    if dominant_emotion in ["紧张", "焦虑"]:
+    if dominant_emotion in ["nervous", "anxious"]:
         interview_suggestions.append("建议在面试前做好充分准备，提高自信心")
         interview_suggestions.append("可以练习放松技巧，如深呼吸")
-    elif dominant_emotion in ["自信", "沉着"]:
+    elif dominant_emotion in ["confident", "composed"]:
         interview_suggestions.append("表现非常出色，继续保持这种状态")
-    elif dominant_emotion == "平静":
+    elif dominant_emotion == "calm":
         interview_suggestions.append("状态稳定，可以适当增加一些积极表达")
     
     if stability < 0.5:

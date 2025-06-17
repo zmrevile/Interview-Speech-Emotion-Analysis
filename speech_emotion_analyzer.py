@@ -82,7 +82,7 @@ class SpeechEmotionAnalyzer:
         Args:
             audio_path: 音频文件路径
             target_sr: 目标采样率
-            max_length: 最大长度（3秒 * 16kHz = 48000）
+            max_length: 最大长度(3秒 * 16kHz = 48000)
         """
         try:
             # 加载音频文件
@@ -104,26 +104,26 @@ class SpeechEmotionAnalyzer:
         # 面试情感映射规则
         mapping = {
             # 原始情感 -> 面试情感
-            '愤怒': '紧张',
-            '悲伤': '焦虑', 
-            '恐惧': '紧张',
-            '厌恶': '不满',
-            '高兴': '自信',
-            '中性': '平静',
-            '惊讶': '兴奋',
-            '平静': '平静',
+            '愤怒': 'nervous',
+            '悲伤': 'anxious', 
+            '恐惧': 'nervous',
+            '厌恶': 'dissatisfied',
+            '高兴': 'confident',
+            '中性': 'calm',
+            '惊讶': 'excited',
+            '平静': 'calm',
             
             # ExHuBERT特殊映射
-            '低唤醒-负面': '焦虑',
-            '低唤醒-中性': '平静', 
-            '低唤醒-正面': '沉着',
-            '高唤醒-负面': '紧张',
-            '高唤醒-中性': '专注',
-            '高唤醒-正面': '自信'
+            '低唤醒-负面': 'anxious',
+            '低唤醒-中性': 'calm', 
+            '低唤醒-正面': 'composed',
+            '高唤醒-负面': 'nervous',
+            '高唤醒-中性': 'focused',
+            '高唤醒-正面': 'confident'
         }
         
         # 面试相关情感类别
-        interview_emotions = ['紧张', '焦虑', '平静', '自信', '沉着', '专注', '兴奋', '不满']
+        interview_emotions = ['nervous', 'anxious', 'calm', 'confident', 'composed', 'focused', 'excited', 'dissatisfied']
         
         # 创建面试情感得分字典
         interview_scores = {emotion: 0.0 for emotion in interview_emotions}
@@ -396,14 +396,14 @@ class SpeechEmotionAnalyzer:
         
         # 基于主导情感的建议
         emotion_advice = {
-            '中性': "表现较为平稳，建议适当表达更多积极情感",
-            '高兴': "表现出良好的积极态度，继续保持",
-            '平静': "表现沉着冷静，这是面试的优势",
-            '愤怒': "建议控制情绪，保持专业态度",
-            '悲伤': "可能需要调整心态，展现更积极的一面",
-            '恐惧': "建议放松心态，增强自信",
-            '惊讶': "反应敏锐，但注意保持专业性",
-            '厌恶': "建议调整态度，保持开放的心态"
+            'calm': "表现较为平稳，建议适当表达更多积极情感",
+            'confident': "表现出良好的积极态度，继续保持",
+            'composed': "表现沉着冷静，这是面试的优势",
+            'nervous': "建议控制情绪，保持专业态度",
+            'anxious': "可能需要调整心态，展现更积极的一面",
+            'focused': "建议放松心态，增强自信",
+            'excited': "反应敏锐，但注意保持专业性",
+            'dissatisfied': "建议调整态度，保持开放的心态"
         }
         
         if dominant_emotion in emotion_advice:
